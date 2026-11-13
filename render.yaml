@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: believefit-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/ping
+    envVars:
+      - key: BELIEVFIT_DATA_DIR
+        value: /var/data
+      - key: BELIEVFIT_DB_PATH
+        value: /var/data/gym_coach.db
+      - key: BELIEVFIT_MODEL_PATH
+        value: /var/data/models/pose_landmarker_full.task
+      - key: BELIEVFIT_COOKIE_SECURE
+        value: "true"
+      - key: PYTHON_VERSION
+        value: 3.11.11
+    disk:
+      name: believefit-data
+      mountPath: /var/data
+      sizeGB: 10
